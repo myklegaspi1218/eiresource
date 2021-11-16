@@ -1,1 +1,1 @@
-web: gunicorn hcbresourcesite.wsgi
+web: gunicorn hcbresourcesite.wsgi --log-file -
