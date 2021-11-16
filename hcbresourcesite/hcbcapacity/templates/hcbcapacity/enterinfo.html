@@ -1,0 +1,259 @@
+{%extends 'base.html' %}
+{%block title%}Enter Pipeline Information{%endblock title%}
+{% block nav-style %}mkt-nav{% endblock nav-style%}
+
+{%block content%}
+
+
+<div class="container-fluid">
+
+  <h1 class="mt-4">Enter Information from Pipeline</h1>
+  <ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Dashboard</li>
+  </ol>
+
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <i class="fas fa-table mr-1"></i>
+      Entry Form
+    </div>
+
+    <div class="rowdate">
+      <div class="col-md-4 order-md-2" style="margin-top: 1em; margin-bottom: 1em;">
+        <div class="card border-info mb-3" style="max-width: 20rem;">
+          <div class="card-header">Info</div>
+          <div class="card-body text-info">
+            <h5 class="card-title">Pipeline Information</h5>
+            <p class="card-text">We can manually store information to the database coming from the pipeline file we
+              receive from the ops
+              team here. The hours can be taken from the PIF information as well. <br/><em><u>Please note that the fields here are required.</u></em>
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-8 order-md-1" style="margin-top: 1em; margin-bottom: 1em;">
+        <form action="{% url 'hcbcapacity:enter-info' %}" class="needs-validation" method="POST">
+          {%csrf_token%}
+          
+          <div>{{form.project_key}}</div>
+          <div class="col-md-12 mb-3">
+            <label for="prorject_type">Project Type</label>
+            {{form.project_type}}
+            <div class="invalid-feedback">
+              Project Type is required.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="contract_type">Contract Type</label>
+            {{form.contract_type}}
+            
+            <div class="invalid-feedback">
+              Contract type is required.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="sub_region">Sub Region Type</label>
+            {{form.sub_region}}            
+            <div class="invalid-feedback">
+              sub region is required.
+            </div>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="summary">Project Name(Summary)</label>
+            <div class="input-group">
+              {{form.summary}}
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <i class="fas fa-edit"></i>
+                </div> 
+              </div>
+            </div>
+
+          
+            <div class="invalid-feedback">
+              {{form.summary.errors}}
+            </div>
+          </div>
+          <span class="rowdate" style="visibility: hidden; width: 0px; height: 0px;">
+            {{form.created}}
+          </span>
+          <span class="col-md-12" style="visibility: hidden; margin:0px; padding: 0px; width: 0px; height: 0px;">
+            {{form.proj_status}}
+          </span>
+          <div class="rowdate">
+            <div class="col-md-12 mb-3">
+              <label for="SurveySetupStart">Survey Setup Start Date</label>
+              <div class="input-group">
+                  {{form.survey_setup_start_date}}
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fas fa-calendar"></i>
+                    </div> 
+                  </div>
+                  
+              </div>
+              
+               
+              
+            
+              <div class="invalid-feedback">
+                Survey Setup Start Date is required.
+              </div>
+            </div>            
+          </div>
+          <div class="rowdate">
+            <div class="col-md-6 mb-3">
+              <label for="AdminStart">Admin Start Date</label>
+              <div class="input-group">
+                {{form.admin_start}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div> 
+                </div>
+              </div>
+             
+              <div class="invalid-feedback">
+                Admin Start Date is required.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="lastName">Admin End Date</label>
+              <div class="input-group">
+                {{form.admin_end}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div> 
+                </div>
+              </div>
+             
+              <div class="invalid-feedback">
+                Admin End Date is required.
+              </div>
+            </div>
+          </div>
+          <div class="rowdate">
+            <div class="col-md-12 mb-3">
+              <label for="EESSetupStart">EES Setup Start Date</label>
+              <div class="input-group">
+                {{form.ees_start_date}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div> 
+                </div>
+                
+              </div>
+              
+              <div class="invalid-feedback">
+                EES Setup Start Date is required.
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="EESSubmissionDate">EES Setup Submission Date</label>
+              <div class="input-group">
+                {{form.ees_submission_end_date}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div> 
+                </div>
+              </div>
+            
+              <div class="invalid-feedback">
+                EES Submission Date is required.
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="EESFirstReleaseDate">EES First Results Release Date</label>
+              <div class="input-group">
+                {{form.ees_first_results_release_date}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-calendar"></i>
+                  </div> 
+                </div>
+              </div>
+            
+              <div class="invalid-feedback">
+                
+                EES First Results Release Date is required.
+              </div>
+            </div>             
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="DaName">Delivery Analyst</label>
+            {{form.delivery_analyst}}
+            <div class="invalid-feedback">
+              Delivery Analyst name is required.
+            </div>
+          </div>     
+
+          <div class="rowdate">
+            <div class="col-md-12 mb-3">
+              <label for="DaHours">DA Hours</label>
+              <div class="input-group">
+                {{form.da_hours}}
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="fas fa-keyboard"></i>
+                  </div> 
+                </div>
+              </div>
+             
+              <div class="invalid-feedback">
+                DA Hours is required.
+              </div>
+            </div>
+            
+          </div>
+
+          <hr class="mb-4">
+        
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Submit Information</button>
+          
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  $("#id_admin_start").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+
+  $("#id_admin_end").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+
+  $("#id_survey_setup_start_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+
+  $("#id_ees_start_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+
+  $("#id_ees_submission_end_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+
+  $("#id_ees_first_results_release_date").datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOptions: { direction: "down" }
+  });
+</script>
+
+{%endblock content%}

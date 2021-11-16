@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="{% url 'hcbcapacity:index' %}">Project List</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+    
+    
+    <form action="{% url 'hcbcapacity:pie-chart' %}" method="GET">  
+    <div class="card mb-3">
+            <div class="card-body">
+                <div class="input-group">
+                    <select class="custom-select custom-select-lg mb-3" name="project_yr" id="ddlYears" aria-label="Floating label select example"></select> 
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-outline-primary btn-lg" value="Submit">
+                </span>
+                
+                </div>
+            </div>       
+        </div>
+    </form> 
+        
+    
+    
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Breakdown of projects by status.
+                </div>
+                <div class="card-body"><canvas id="myStatPieChart" class="chartjs" width="708" height="353" style="display: block; height: 283px; width: 567px;"></canvas></div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            
+                <div class=" card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area mr-1"></i>
+                        Projects without DA:
+                    </div>
+                    <div class="card-body">
+                        <h4 style="text-align: center;"><u></u></h4>
+                        <div class="card bg-warning text-white mb-4">
+                        <div class="card-body-chart">{{proj_wo_da}}</div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="{% url 'hcbcapacity:project-wo-da' %}">View Details</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                        </div>
+                        <h4 style="text-align: center;"><u></u></h4>
+                
+                    </div>
+                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>                   
+                </div>
+                
+            </div>
+           
+                
+            </div>
+        
+        
+       
+   
+   
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            Projected Overall DA Productivity by Month
+        </div>
+        <div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+<div class="row">
+   
+    
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar mr-1"></i>
+                Productivity Forecast for the Year
+            </div>
+            <div class="card-body"><canvas id="myBarChart" class="chartjs" width="708" height="353" style="display: block; height: 283px; width: 567px;"></canvas></div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-pie mr-1"></i>
+                No. of Hours Breakdown Allocation by Region
+            </div>
+            <div class="card-body"><canvas id="myPieChart" class="chartjs" width="708" height="353" style="display: block; height: 283px; width: 567px;"></canvas></div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Productivity Breakdown by Month
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="alert alert-secondary">Please note that the values here are in percentages (%).</div>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                      
+                        <th>Delivery Analyst</th>
+                        <th>Region</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                        <th>Apr</th>
+                        <th>May</th>
+                        <th>Jun</th>
+                        <th>Jul</th>
+                        <th>Aug</th>
+                        <th>Sep</th>
+                        <th>Oct</th>
+                        <th>Nov</th>
+                        <th>Dec</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        
+                        <th>Delivery Analyst</th>
+                        <th>Region</th>
+                        <th>Jan</th>
+                        <th>Feb</th>
+                        <th>Mar</th>
+                        <th>Apr</th>
+                        <th>May</th>
+                        <th>Jun</th>
+                        <th>Jul</th>
+                        <th>Aug</th>
+                        <th>Sep</th>
+                        <th>Oct</th>
+                        <th>Nov</th>
+                        <th>Dec</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% if daProd %}   
+                    {% for daProds in daProd %}
+                    <tr>
+                        
+                        <td align="left"><a class="btn-link" href="{% url 'hcbcapacity:da-projects' daProds.prod_id  %}">{{daProds.delivery_analyst}}</a></td>
+                        <td align="left">{{daProds.sub_region}}</td>
+                        <td align="center">{{daProds.jan|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.feb|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.mar|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.apr|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.may|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.jun|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.jul|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.aug|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.sep|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.oct|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.nov|floatformat:"0"}}</td>
+                        <td align="center">{{daProds.dece|floatformat:"0"}}</td>                        
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                        <p>no data found</p>
+                    {% endif %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+        var table = document.getElementById('dataTable');
+        var tbody = table.getElementsByTagName('tbody')[0];
+        var cells = tbody.getElementsByTagName('td');
+
+        for (var i=0, len=cells.length; i<len; i++){
+            if (parseInt(cells[i].innerHTML,10) <= 74){
+                cells[i].style.backgroundColor = '#fbc8d0';
+            }
+            else if (parseInt(cells[i].innerHTML,10) >= 75 && parseInt(cells[i].innerHTML,10) <= 84) {
+                cells[i].style.backgroundColor = '#b0f7e0';
+            }
+            else if (parseInt(cells[i].innerHTML,10) >= 85) {
+                cells[i].style.backgroundColor = '#ffb059';
+            }
+        }
+    window.onload = function() {      
+
+        var ctx = document.getElementById("myStatPieChart");
+            var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: {{labels_stat_pie | safe}},
+                datasets: [{
+                data: {{data_stat_pie | safe}},
+                backgroundColor: ['#1b1d45', '#252a64', '#787baa', '#787baa','#c0c2d8','#16b8ad','#aaf4c3','#c0c0d2','#537d58','#1b31f5'],
+                }],
+            },
+        });
+
+        var ctx1 = document.getElementById("myPieChart");
+            var myPieChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: {{labels_pie | safe}},
+                datasets: [{
+                data: {{data_pie | safe}},
+                backgroundColor: ['#63666a','#00c389','#6eedbf', '#cc9315', '#30347d','#16b8ad','#aaf4c3','#c0c0d2','#537d58','#1b31f5'],
+                }],
+            },
+        });
+
+        var ctx2 = document.getElementById('myBarChart').getContext('2d');
+        var myBarChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: {{labels_bar | safe}},
+            datasets: [{
+                label: 'Forecasted Productivity',
+                data: {{data_bar | safe}},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx3 = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: {{labels_area | safe}},
+        datasets: [{
+        label: "Productivity Forecast",
+        lineTension: 0.3,
+        backgroundColor: "rgba(2,117,216,0.2)",
+        borderColor: "rgba(2,117,216,1)",
+        pointRadius: 5,
+        pointBackgroundColor: "rgba(2,117,216,1)",
+        pointBorderColor: "rgba(255,255,255,0.8)",
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: "rgba(2,117,216,1)",
+        pointHitRadius: 50,
+        pointBorderWidth: 2,
+        data: {{data_area | safe}},
+        }],
+    },
+    options: {
+        scales: {
+        xAxes: [{
+            time: {
+            unit: 'date'
+            },
+            gridLines: {
+            display: false
+            },
+            ticks: {
+            maxTicksLimit: 12
+            }
+        }],
+        yAxes: [{
+            ticks: {
+            min: 0,
+            max: 100,
+            maxTicksLimit: 5
+            },
+            gridLines: {
+            color: "rgba(0, 0, 0, .125)",
+            }
+        }],
+        },
+        legend: {
+        display: false
+        }
+    }
+    });
+
+    $(function () {
+        //Reference the DropDownList.
+        var ddlYears = $("#ddlYears");
+ 
+        //Determine the Current Year.
+        var nextYear = (new Date()).getFullYear() + 1;
+ 
+        //Loop and add the Year values to DropDownList.
+        for (var i = 2021; i <= nextYear; i++) {
+            var option = $("<option />");
+            option.html(i);
+            option.val(i);
+            ddlYears.append(option);
+        }
+    });
+    
+    }
+    
+</script>
+
+{%endblock content%}

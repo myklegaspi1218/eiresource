@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Project List without DA{% endblock title%}
+{% block nav-style %}mkt-nav{% endblock nav-style%}
+
+{% block content %}   
+
+    <div class="container-fluid">     
+        
+        <h1 class="mt-4">Project List</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Filtered DA projects</li>
+        </ol>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Projects of selected Delivery Analyst
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Key</th>                                
+                                <th>Delivery Analyst</th>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Complexity</th>                                
+                                <th>DA Hours Required</th>
+                                <th>Admin Start Date</th>
+                                <th>EES First Results Release Date</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Key</th>                                
+                                <th>Delivery Analyst</th>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Complexity</th>                                
+                                <th>DA Hours Required</th>
+                                <th>Admin Start Date</th>
+                                <th>EES First Results Release Date</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% if list_projects_w_da %}   
+                            {% for projectlist in list_projects_w_da %}
+                            <tr>
+                                <td><a href='http://jira.ehr.com/browse/{{projectlist.project_key}}'>{{projectlist.project_key}}</a></td>
+                               
+                                <td>{{projectlist.delivery_analyst}}</td>
+                                <td>{{projectlist.summary}}</td>
+                                <td>{{projectlist.proj_status}}</td>
+                                <td>{{projectlist.complexity}}</td>                               
+                                <td>{{projectlist.da_hours}}</td>
+                                <td>{{projectlist.admin_start.date}}</td>
+                                <td>{{projectlist.ees_first_results_release_date.date}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <p>no data found</p>
+                            {% endif %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

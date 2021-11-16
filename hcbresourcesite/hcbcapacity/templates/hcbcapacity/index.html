@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title%}
+{% block nav-style %}mkt-nav{% endblock nav-style%}
+
+{% block content %}   
+
+    <div class="container-fluid">     
+        
+        <h1 class="mt-4">Project List</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                DataTable Example
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Complexity</th>
+                                <th>Admin Start Date</th>
+                                <th>Admin End Date</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Key</th>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Complexity</th>
+                                <th>Admin Start Date</th>
+                                <th>Admin End Date</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% if latest_project_list %}   
+                            {% for projectlist in latest_project_list %}
+                            <tr>
+                                <td><a href='http://jira.ehr.com/browse/{{projectlist.project_key}}'>{{projectlist.project_key}}</a></td>
+                                <td>{{projectlist.summary}}</td>
+                                <td>{{projectlist.proj_status}}</td>
+                                <td>{{projectlist.complexity}}</td>
+                                <td>{{projectlist.admin_start.date}}</td>
+                                <td>{{projectlist.admin_end.date}}</td>
+                                
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <p>no data found</p>
+                            {% endif %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
