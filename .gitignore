@@ -1,5 +1,6 @@
 # Distribution / packaging
 .Python
+.vscode/
 .venv/
 env/
 *.sqlite3
