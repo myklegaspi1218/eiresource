@@ -1,1 +1,1 @@
-web: gunicorn hcbresourcesite.hcbresourcesite.wsgi
+web: gunicorn --pythonpath hcbresourcesite/src hcbresourcesite.wsgi
