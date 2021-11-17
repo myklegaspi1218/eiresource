@@ -1,2 +1,2 @@
-web: gunicorn --pythonpath hcbresourcesite/ hcbresourcesite.wsgi --log-file-
+web: gunicorn --pythonpath hcbresourcesite/ hcbresourcesite.wsgi
 manage.py migrate
