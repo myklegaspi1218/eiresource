@@ -1,2 +1,2 @@
 web: gunicorn --pythonpath hcbresourcesite/ hcbresourcesite.wsgi
-release: python manage.py migrate
+release: --pythonpath hcbresourcesite/ python manage.py migrate
