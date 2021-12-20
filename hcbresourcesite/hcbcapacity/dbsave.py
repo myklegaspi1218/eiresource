@@ -4,7 +4,7 @@ class dbStore:
 
     def summaryTblUpdate(self, t):
             try:
-                db = psycopg2.connect("dbname='proj_list2' user='postgres' password='WillisTowersWatsonEI2020' host='localhost' port='5432'")
+                db = psycopg2.connect("dbname='dddfbks983sn31' user='nryzwnwnozqptn' password='16dd448fc2d0649cf11948eefe9148cc7e654d06a17fcae0e3c84f3339fcaf04' host='ec2-3-230-149-158.compute-1.amazonaws.com' port='5432'")
                 cursor = db.cursor()
                 columns = ', '.join(t.keys())
                 
@@ -23,7 +23,7 @@ class dbStore:
 
     def apiTblUpdate(self, api):
             try:
-                db = psycopg2.connect("dbname='proj_list2' user='postgres' password='WillisTowersWatsonEI2020' host='localhost' port='5432'")
+                db = psycopg2.connect("dbname='dddfbks983sn31' user='nryzwnwnozqptn' password='16dd448fc2d0649cf11948eefe9148cc7e654d06a17fcae0e3c84f3339fcaf04' host='ec2-3-230-149-158.compute-1.amazonaws.com' port='5432'")
                 cursor = db.cursor()
                 #cursor.execute('DELETE FROM hcbcapacity_api_proj_list WHERE project_key LIKE "%E4-%";')
             
