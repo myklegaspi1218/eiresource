@@ -84,10 +84,10 @@ prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proj_list2',
-        'USER' : 'postgres',
-        'PASSWORD':'WillisTowersWatsonEI2020',
-        'HOST': '127.0.0.1',
+        'NAME': 'dddfbks983sn31',
+        'USER' : 'nryzwnwnozqptn',
+        'PASSWORD':'16dd448fc2d0649cf11948eefe9148cc7e654d06a17fcae0e3c84f3339fcaf04',
+        'HOST': 'ec2-3-230-149-158.compute-1.amazonaws.com',
         'PORT' : '5432'
     }
 }
