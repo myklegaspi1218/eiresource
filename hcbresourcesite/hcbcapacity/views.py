@@ -276,7 +276,7 @@ def update_api_table(request):
     if request.method == 'POST':
 
         #first connect the JIRA api.
-        jira_connect = JIRA('http://jira.ehr.com/',basic_auth=('MICHA557', 'Mike&Rose21'))
+        jira_connect = JIRA('http://jira.ehr.com/',basic_auth=('MICHA557', 'Mike&Rose22'))
 
         #store the JQL in a request variable.
         jql_request = 'issuetype in ("Survey Request", "Project Initiation") AND summary !~ test AND summary !~ "pulse product" AND created >= startOfYear() AND created <= endOfYear() AND ("Project Type" in ("Traditional Survey (Confirmit)", "Managed EES / Pulse License / Pulse License + Additional Services") OR "Contract Type" in ("2b. License + support for managed project (Lite/Base + Premium)", "3. Managed projects on EES")) AND status not in (Closed, Cancelled, Completed) ORDER BY created DESC'
