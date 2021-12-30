@@ -277,7 +277,7 @@ def update_api_table(request):
       
 
         #open JSON file containing JIRA extract:
-        with open('sample.json','r') as f:
+        with open('~/hcbresourcesite/sample.json','r') as f:
              dataset = json.load(f)
 
         preProc = forecastTblPreProcess()
