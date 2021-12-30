@@ -275,7 +275,7 @@ def update_api_table(request):
 
     if request.method == 'POST':
 
-        #first connect the JIRA api.
+       """ #first connect the JIRA api.
         jira_connect = JIRA('http://jira.ehr.com/',basic_auth=('MICHA557', 'Mike&Rose22'))
 
         #store the JQL in a request variable.
@@ -352,7 +352,7 @@ def update_api_table(request):
             
 
         with open("sample.json", 'w') as outfile:
-            json.dump(dt_main, outfile)
+            json.dump(dt_main, outfile) """
 
         #open JSON file containing JIRA extract:
         with open('sample.json','r') as f:
